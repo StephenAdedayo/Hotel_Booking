@@ -11,7 +11,7 @@ import roomRouter from "./routes/roomRoute.js"
 import bookingRouter from "./routes/bookingRoute.js"
 
 
-connectDB()
+await connectDB()
 connectCloudinary()
 
 
