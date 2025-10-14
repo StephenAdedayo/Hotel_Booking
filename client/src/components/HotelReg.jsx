@@ -2,19 +2,38 @@ import React from 'react'
 import { assets, cities } from '../assets/assets'
 import { useAppContext } from '../context/AppContext'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 
 const HotelReg = () => {
 
-    const {setShowHotelReg} = useAppContext()
+    const {setShowHotelReg, axios, setIsOwner, getToken} = useAppContext()
 
     const [name, setName] = useState("")
     const [address, setAddress] = useState("")
     const [contact, setContact] = useState("")
     const [city, setCity] = useState("")
 
+    const onSubmitHandler = async (e) => {
+        e.preventDefault()
+        try {
+            const {data} = axios.post(`/api/hotels`, {name, address, contact, city}, {headers : {Authorization : `Bearer ${await getToken()}`}})
+
+            if(data.success){
+                toast.success(data.message)
+                setIsOwner(true)
+                setShowHotelReg(false)
+            }else{
+                toast.error(data.message)
+            }
+        } catch (error) {
+            toast.error(error.message)
+        }
+
+    }
+
   return (
-    <div className='fixed bottom-0 top-0 right-0 left-0 z-100 flex items-center justify-center bg-black/70'>
-       <form className='flex bg-white rounded-xl max-w-4xl max-md:mx-2 '>
+    <div onClick={() => setShowHotelReg(false)} className='fixed bottom-0 top-0 right-0 left-0 z-100 flex items-center justify-center bg-black/70'>
+       <form onSubmit={onSubmitHandler} onClick={(e) => e.stopPropagation()} className='flex bg-white rounded-xl max-w-4xl max-md:mx-2 '>
         <img src={assets.regImage} alt="reg-image" className='w-1/2 rounded-xl hidden md:block'/>
 
         <div className='relative flex flex-col items-center md:w-1/2 p-8 md:p-10'>
