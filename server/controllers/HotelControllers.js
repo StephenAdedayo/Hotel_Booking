@@ -1,0 +1,32 @@
+import Hotel from "../models/Hotel.js";
+import User from "../models/User.js";
+
+
+export const registerHotel = async (req, res) => {
+
+    try {
+        const {name, address, city, contact} = req.body
+
+        // store the id of already logged in used to check if the owner: user/hotelowner has already registered hotel
+        const owner = req.user._id
+
+        // check if user exists
+        // hotel model finds owner
+        const hotel = Hotel.findOne({owner})
+
+        if(hotel){
+            res.json({success: false, message : "Hotel Already Registered"})
+        }
+           
+        await Hotel.create({name, address, city, contact, owner})
+        
+        await User.findByIdAndUpdate(owner, {role : "hotelOwner"})
+
+        res.json({success: true, message:"Hotel Registered Successfully"})
+
+    } catch (error) {
+        res.json({success: false, message:error.message})
+
+    }
+
+}
