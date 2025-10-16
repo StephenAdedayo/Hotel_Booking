@@ -9,6 +9,7 @@ export const protect = async (req, res, next) => {
 
      if(!userId){
         res.json({success: false, message: "not authenticated"})
+        
      }else{
         // find user by the id when authenticated
         const user = await User.findById(userId)
