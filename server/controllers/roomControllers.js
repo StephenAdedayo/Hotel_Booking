@@ -5,6 +5,7 @@
 
 import Hotel from "../models/Hotel.js"
 import Room from "../models/Room.js"
+import {v2 as cloudinary} from "cloudinary"
 
 export const createRoom = async (req, res) => {
 
@@ -27,7 +28,7 @@ export const createRoom = async (req, res) => {
 
             const images = await Promise.all((uploadImages))
 
-             await Room.Create({
+             await Room.create({
                 // hotel._id is purely mongodb id
                 hotel : hotel._id,
                 roomType,
