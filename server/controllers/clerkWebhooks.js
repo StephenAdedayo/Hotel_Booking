@@ -28,7 +28,7 @@ const clerkWebhooks = async (req, res) => {
         //     image : data.image_url
         // }
 
-        // this userdata was updated to inside the cases because deleted festure will not work
+        // this userdata was updated to inside the cases because deleted feature will not work
 
         switch (type) {
          case "user.created" : {

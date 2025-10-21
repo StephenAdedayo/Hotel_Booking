@@ -63,13 +63,15 @@ const AllRooms = () => {
 
     // handles changes for filters and sort
 
-    const  handleFilterChange = (checked, value, type) => {
+    const handleFilterChange = (checked, value, type) => {
 
         setSelectedFilters((prevFilters) => {
             const updatedFilters = {...prevFilters}
             if(checked){
+                // that is slectedfilter[roomtype] || [pricerange].push the value
                 updatedFilters[type].push(value)
             }else{
+                // that is selectedfilter[roomtype] || [pricerange] = slectedfilter.filter item !== value i.e removing the value
                 updatedFilters[type] = updatedFilters[type].filter(item => item !== value)
             }
             return updatedFilters
@@ -77,16 +79,32 @@ const AllRooms = () => {
 
     }
 
+
+    //funtion set selectsort to be the option and sort in the usememo
     const handleSortChange = (sortOption) => {
         setSelectedSort(sortOption)
     }
 
     // function to check if a room matches the selected room type
+
+    // room is a parameter that will be passed in as an argument
+    // function returns the roomType === 0 || return selectedfilters.roomType.includes the room passed in argument.roomType i.e check if roomType.includes the room.roomType passed in
     const matchesRoomType = (room) => {
         return selectedFilters.roomType.length === 0 || selectedFilters.roomType.includes(room.roomType)
     }
 
     // function to check if a room matches the selected price range
+//     If no price filters are selected → returns true.
+
+// Otherwise it tries every selected range string (e.g. "0 to 500") and:
+
+// Splits it into min and max
+
+// Converts to numbers
+
+// Checks whether room.pricePerNight falls within [min, max] inclusive.
+
+// If any selected range contains the price → function returns true.
     const matchesPriceRange = (room) => {
         return selectedFilters.priceRange.length === 0 || selectedFilters.priceRange.some(range => {
             const [min, max] = range.split(" to ").map(Number)
@@ -115,10 +133,23 @@ const AllRooms = () => {
     const filterDestination = (room) => {
         const destination = searchParams.get("destination")
         if(!destination) return true
-        return room.hotel.city.toLowerCase().includes(destination.toLowerCase())
+        return room.hotel.city.toLowerCase() === (destination.toLowerCase())
     }
 
     // filter and sort rooms based on selected filters and sort option
+//     What it does (pipeline)
+
+// rooms.filter(...) — keeps only rooms that pass all three checks:
+
+// matchesRoomType
+
+// matchesPriceRange
+
+// filterDestination
+
+// .sort(sortRooms) — sorts the filtered array based on selectedSort.
+
+// useMemo memoizes the result so the computation only runs when one of the dependencies changes: rooms, selectedFilters, selectedSort, searchParams.
     const filteredRooms = useMemo(() => {
         return rooms.filter(room => matchesRoomType(room) && matchesPriceRange(room) && filterDestination(room)).sort(sortRooms)
     }, [rooms, selectedFilters, selectedSort, searchParams])
@@ -186,7 +217,7 @@ const AllRooms = () => {
         <p className='text-base font-medium text-gray-800'>FILTER</p>
         <div className='text-xs cursor-pointer'>
             <span onClick={() => setOpenFilters(!openFilters)} className='lg:hidden'>{openFilters ? "HIDE" : "SHOW"}</span>
-            <span className='hidden lg:block'>CLEAR</span>
+            <span onClick={clearAllFilters} className='hidden lg:block'>CLEAR</span>
         </div>
     </div>
 

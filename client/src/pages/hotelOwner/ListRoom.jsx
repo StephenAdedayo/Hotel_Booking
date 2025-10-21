@@ -65,13 +65,12 @@ const ListRoom = () => {
                 <td className='py-3 px-4 text-gray-700 border-t border-gray-300 max-sm:hidden'>  {item.amenities.join(", ")}</td>
                 <td className='py-3 px-4 text-gray-700 border-t border-gray-300 text-center'>  {currency} {item.pricePerNight}</td>
                 <td className='py-3 px-4 text-red-500 border-t border-gray-300 text-sm text-center'>
-                    <label htmlFor="" className='relative inline-flex items-center cursor-pointer  text-gray-900 gap-3'>
-                  {/* check if is available and checked and peer-checked works for the div and span by turning blue and translating on x axis   */}
-                        <input onChange={() => toggleAvailability(item._id)} type="checkbox"  className='sr-only peer' checked={item.isAvailable}/>
-                        <div className='w-12 h-7 bg-slate-300 rounded-full peer peer-checked:bg-blue-600 transition-colors duration-200 '>
-                        </div>
-                        <span className='dot absolute left-1 top-1 w-5 h-5 bg-white rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-5'></span>
-                    </label>
+                     <label class="relative inline-flex cursor-pointer items-center gap-3 text-gray-900">
+        <input type="checkbox" onChange={() => toggleAvailability(item._id)} class="peer sr-only" checked={item.isAvailable} />
+        <div class="peer h-7 w-12 rounded-full bg-slate-300 ring-offset-1 transition-colors duration-200 peer-checked:bg-indigo-600 peer-focus:ring-2 peer-focus:ring-indigo-500"></div>
+        <span class="dot absolute top-1 left-1 h-5 w-5 rounded-full bg-white transition-transform duration-200 ease-in-out peer-checked:translate-x-5"></span></label>
+
+                    
                 </td>
               
             </tr>

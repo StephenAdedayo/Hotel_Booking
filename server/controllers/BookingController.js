@@ -57,7 +57,7 @@ export const createBooking = async (req, res) => {
         const isAvailable = await checkAvailability({room, checkInDate, checkOutDate})
 
         if(!isAvailable){
-            res.json({success : false, message: "Room is not available"})
+          return  res.json({success : false, message: "Room is not available"})
         }
 
         // get total price for room
