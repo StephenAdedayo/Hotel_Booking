@@ -15,7 +15,7 @@ export const createRoom = async (req, res) => {
         // check if owner stored in the hotel model is === req.auth.userId of the middleware 
         // in the hotel controller owner has been saved as an ID from req.user._id from the user model
         //find owner by clerkId and clerkID has been saved when a user is created and owner is saved as clerkId in the registerHotel controller
-        const hotel = await Hotel.findOne({owner: req.auth.userId})
+        const hotel = await Hotel.findOne({owner: await req.auth().userId})
         
         if(!hotel) res.json({success : false, message : "Not found"})
         
@@ -73,7 +73,7 @@ export const getRoom = async (req, res) => {
 export const getOwnerRooms = async (req, res) => {
 
     try {
-        const hotelData = await Hotel.findOne({owner:req.auth.userId})
+        const hotelData = await Hotel.findOne({owner: await req.auth().userId})
         const rooms = await Room.find({hotel: hotelData._id.toString()}).populate("hotel")
 
         res.json({success : true, rooms})

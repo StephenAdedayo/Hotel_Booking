@@ -15,6 +15,9 @@ export const protect = async (req, res, next) => {
         const user = await User.findById(userId)
         // store user in req.user to be used in getuserdata controller
         req.user = user
+        if(req.body){
+          req.body.userId = userId
+        }
         
         next()
      }

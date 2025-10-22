@@ -123,7 +123,7 @@ const Addroom = () => {
 
         </div>
 
-        <button disabled={loading} className='bg-primary text-white px-8 py-2 rounded mt-8 cursor-pointer'>{loading ? "Adding" : "Add Room"}</button>
+        <button disabled={loading} className='bg-primary text-white px-8 py-2 rounded mt-8 cursor-pointer'>{loading ? "Adding... " : "Add Room"}</button>
     </form>
   )
 }
