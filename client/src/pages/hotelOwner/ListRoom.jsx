@@ -69,8 +69,6 @@ const ListRoom = () => {
         <input type="checkbox" onChange={() => toggleAvailability(item._id)} class="peer sr-only" checked={item.isAvailable} />
         <div class="peer h-7 w-12 rounded-full bg-slate-300 ring-offset-1 transition-colors duration-200 peer-checked:bg-indigo-600 peer-focus:ring-2 peer-focus:ring-indigo-500"></div>
         <span class="dot absolute top-1 left-1 h-5 w-5 rounded-full bg-white transition-transform duration-200 ease-in-out peer-checked:translate-x-5"></span></label>
-
-                    
                 </td>
               
             </tr>

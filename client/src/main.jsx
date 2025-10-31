@@ -20,8 +20,8 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
     <AppProvider>
     <App />
-    </AppProvider>,
+    </AppProvider>
     </BrowserRouter>
     </ClerkProvider>
-  </StrictMode>,
+  </StrictMode>
 )

@@ -6,6 +6,7 @@ import { useAppContext } from '../context/AppContext'
 const RecommendedHotel = () => {
 
     const {rooms, navigate, searchedCities} = useAppContext()
+    
     const [recommend, setRecommend] = useState([])
 
     const filter = () => {
@@ -18,7 +19,7 @@ const RecommendedHotel = () => {
     }, [rooms, searchedCities])
 
   return recommend.length > 0 && (
-    <div className='flex flex-col items-center px-6 md:px-16 lg:px-24 bg-slate-50 py-20'>
+    <div className='flex flex-col items-center px-6 md:px-16 lg:px-24 bg-slate-50 pt-20'>
 
         <Title title={"Recommended Hotel"} subTitle={"Discover our handpicked selection of exceptional properties around the world, offering unparalleled luxury and unforgettable experiences."}/>
       <div className='flex justify-center items-center flex-wrap gap-6 mt-20'>

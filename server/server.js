@@ -31,7 +31,6 @@ app.use(clerkMiddleware())
 app.use("/api/clerk", clerkWebhooks)
 
 
-
 app.get("/", (req, res) => res.send("API Working"))
 app.use("/api/user", userRouter)
 app.use("/api/hotels", hotelRouter)

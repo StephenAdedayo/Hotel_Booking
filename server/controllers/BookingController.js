@@ -11,9 +11,12 @@ const checkAvailability = async ({checkInDate, checkOutDate, room}) => {
 //   room is an ID from model ref="Room"
     try {
         const bookings = await Booking.find({
-
+// room = id  passed in from frontend from the check availabilty api ref booking model using the ref = room
+// 
             room,
+// The existing booking starts before or on the requested checkout date.
             checkInDate : {$lte : checkOutDate},
+// The existing booking ends after or on the requested check-in date.
             checkOutDate : {$gte : checkInDate}
         })
 
@@ -69,7 +72,7 @@ export const createBooking = async (req, res) => {
         const checkOut = new Date(checkOutDate)
         const timeDiff = checkOut.getTime() - checkIn.getTime()
         const nights = Math.ceil(timeDiff / (1000 * 3600 *24))
-
+        
         totalPrice *= nights
 
         const booking = await Booking.create({
@@ -142,6 +145,7 @@ export const getHotelBookings = async (req, res) => {
 
         const bookings = await Booking.find({hotel: hotel._id}).populate("room hotel user").sort({createdAt : -1})
 
+         
         // Total bookings
         
         const totalBookings = bookings.length
@@ -187,6 +191,7 @@ export const stripePayment = async (req, res) => {
             mode : "payment",
             success_url : `${origin}/loader/my-bookings`,
             cancel_url : `${origin}/my-bookings`,
+            // metadata to be used in stripe webhook
             metadata : {
                 bookingId
             }
@@ -200,3 +205,4 @@ export const stripePayment = async (req, res) => {
     }
 
 }
+

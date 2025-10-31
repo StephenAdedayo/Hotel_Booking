@@ -83,7 +83,7 @@ const RoomDetails = () => {
         </div>
 {/* room rating */}
         <div className='flex items-center gap-1 mt-2'>
-            <StarRating rating={room.hotel.rating}/>
+            <StarRating rating={room?.hotel.rating}/>
             <p className='ml-2'>200+ reviews</p>
         </div>
 
@@ -189,7 +189,7 @@ const RoomDetails = () => {
                 <div>
                     <p className='text-lg md:text-xl'>Hosted by {room.hotel.name}</p>
                     <div className='flex items-center mt-1'>
-                        <StarRating rating={room.hotel.rating}/>
+                        <StarRating rating={room?.hotel.rating}/>
                         <p className='ml-2'>200+ reviews</p>
                     </div>
                 </div>
